@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Surprise for My Best Friend</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            width: 90%;
+            max-width: 480px;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            text-align: center;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        h1 {
+            color: #e60073;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        button {
+            background: #e60073;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #b30059;
+            transform: scale(1.05);
+        }
+
+        #msg {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            color: #d10063;
+            font-weight: bold;
+            display: none;
+        }
+
+        #photo {
+            width: 100%;
+            max-height: 280px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* Hearts */
+        .heart {
+            position: fixed;
+            bottom: 0;
+            color: #ff4081;
+            font-size: 20px;
+            animation: rise 4s linear infinite;
+        }
+
+        @keyframes rise {
+            to { transform: translateY(-120vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Music -->
+    <audio id="bgm" loop>
+        <source src="birthday_song.m4a" type="audio/mp3">
+    </audio>
+
+    <div class="card" id="mainCard">
+        <h1>🎉 Surprise! 🎉</h1>
+        <p>Hey 281208, this is a small website I made for you… because you're special! 💖</p>
+
+        <img id="photo" src="friend_photo.jpg" alt="Photo" />
+
+        <button onclick="unlock()">Unlock Surprise 🔐</button>
+
+        <div id="msg"></div>
+    </div>
+
+    <script>
+        function unlock() {
+            let pass = prompt("Enter your secret password: (You can set one)");
+            if (pass === "bestie") {
+                startEffects();
+            } else {
+                alert("Wrong password! Try again 💗");
+            }
+        }
+
+        function startEffects() {
+            document.getElementById('bgm').play();
+
+            document.getElementById('photo').style.display = 'block';
+
+            document.getElementById('msg').innerHTML = `💖 Tamil Vintage Message 💖<br><br>
+            "தூரம் இருந்தாலும், என் மனசுல நீங்க தான் நெருக்கம்…
+            நீங்க இருக்குற தினம் தான் என் வாழ்கைல பண்டிகை."
+            <br><br>❤️ You are one of the best things in my life.`;
+            document.getElementById('msg').style.display = 'block';
+
+            createConfetti();
+            createHearts();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 40; i++) {
+                let c = document.createElement("div");
+                c.classList.add("confetti");
+                c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+                c.style.left = Math.random() * 100 + "vw";
+                c.style.animationDuration = (Math.random()*2+3)+"s";
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 6000);
+            }
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 15; i++) {
+                let h = document.createElement("div");
+                h.classList.add("heart");
+                h.innerHTML = "❤️";
+                h.style.left = Math.random()*100 + "vw";
+                h.style.animationDuration = (Math.random()*2+3)+"s";
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 6000);
+            }
+        }
+    </script>
+</body>
+</html>
